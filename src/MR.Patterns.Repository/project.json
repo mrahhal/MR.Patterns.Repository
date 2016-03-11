@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Provides a base when implementing the repository pattern mostly with EF6",
+  "description": "Provides a base when implementing the repository pattern with EF6",
   "authors": [ "Mohammad Rahhal" ],
   "tags": [ "ef", "repository", "pattern", "extensions" ],
   "projectUrl": "https://github.com/mrahhal/MR.Patterns.Repository",
