@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
 
-namespace MR.Patterns.Repository
+namespace MR.Patterns.Repository.Internal
 {
-	public static class ReflectionHelper
+	internal static class ReflectionHelper
 	{
 		public static bool IsDefaultCountValue(PropertyInfo property, object obj)
 		{

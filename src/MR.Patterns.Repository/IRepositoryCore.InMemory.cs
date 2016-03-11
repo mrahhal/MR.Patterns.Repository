@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using MR.Patterns.Repository.Internal;
 
 namespace MR.Patterns.Repository
 {
