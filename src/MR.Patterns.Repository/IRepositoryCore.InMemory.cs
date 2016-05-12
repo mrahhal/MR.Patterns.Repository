@@ -84,6 +84,22 @@ namespace MR.Patterns.Repository
 		{
 		}
 
+		public virtual Task RunInTransactionAsync(Func<Task> action) => action();
+
+		public virtual Task RunInTransactionAsync(Func<IDbTransaction, Task> action) => action(null);
+
+		public virtual Task RunInTransactionAsync(Action action)
+		{
+			action();
+			return Task.FromResult(0);
+		}
+
+		public virtual Task RunInTransactionAsync(Action<IDbTransaction> action)
+		{
+			action(null);
+			return Task.FromResult(0);
+		}
+
 		private class Table
 		{
 			private Type _entityType;
