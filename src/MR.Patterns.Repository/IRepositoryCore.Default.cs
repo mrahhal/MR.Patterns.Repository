@@ -20,30 +20,30 @@ namespace MR.Patterns.Repository
 
 		public DbConnection Connection => Context.Database.Connection;
 
-		public void Add<TEntity>(TEntity entity)
+		public virtual void Add<TEntity>(TEntity entity)
 			where TEntity : class
 		{
 			Context.Set<TEntity>().Add(entity);
 		}
 
-		public void Update<TEntity>(TEntity entity)
+		public virtual void Update<TEntity>(TEntity entity)
 			where TEntity : class
 		{
 			Context.Entry(entity).State = EntityState.Modified;
 		}
 
-		public void Remove<TEntity>(TEntity entity)
+		public virtual void Remove<TEntity>(TEntity entity)
 			where TEntity : class
 		{
 			Context.Set<TEntity>().Remove(entity);
 		}
 
-		public Task SaveChangesAsync() => Context.SaveChangesAsync();
+		public virtual Task SaveChangesAsync() => Context.SaveChangesAsync();
 
-		public Task RunInTransactionAsync(Func<Task> action)
+		public virtual Task RunInTransactionAsync(Func<Task> action)
 			=> RunInTransactionAsync((_) => action());
 
-		public async Task RunInTransactionAsync(Func<IDbTransaction, Task> action)
+		public virtual async Task RunInTransactionAsync(Func<IDbTransaction, Task> action)
 		{
 			using (var transaction = Database.BeginTransaction())
 			{
@@ -62,10 +62,10 @@ namespace MR.Patterns.Repository
 			}
 		}
 
-		public Task RunInTransactionAsync(Action action)
+		public virtual Task RunInTransactionAsync(Action action)
 			=> RunInTransactionAsync((_) => action());
 
-		public async Task RunInTransactionAsync(Action<IDbTransaction> action)
+		public virtual async Task RunInTransactionAsync(Action<IDbTransaction> action)
 		{
 			using (var transaction = Database.BeginTransaction())
 			{
@@ -84,7 +84,7 @@ namespace MR.Patterns.Repository
 			}
 		}
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			Context.Dispose();
 		}

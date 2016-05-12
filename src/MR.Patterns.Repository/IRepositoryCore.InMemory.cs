@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace MR.Patterns.Repository
 	{
 		private Dictionary<Type, Table> _tables = new Dictionary<Type, Table>();
 
-		public void Add<TEntity>(TEntity entity)
+		public virtual void Add<TEntity>(TEntity entity)
 			where TEntity : class
 		{
 			var table = EnsureTable<TEntity>();
@@ -23,12 +24,12 @@ namespace MR.Patterns.Repository
 			}
 		}
 
-		public void Update<TEntity>(TEntity entity)
+		public virtual void Update<TEntity>(TEntity entity)
 			where TEntity : class
 		{
 		}
 
-		public void Remove<TEntity>(TEntity entity)
+		public virtual void Remove<TEntity>(TEntity entity)
 			where TEntity : class
 		{
 			var table = EnsureTable<TEntity>();
@@ -47,7 +48,7 @@ namespace MR.Patterns.Repository
 			return entities.AsQueryable();
 		}
 
-		public Task SaveChangesAsync() => Task.FromResult(0);
+		public virtual Task SaveChangesAsync() => Task.FromResult(0);
 
 		//------------------------------------------------------------------------------
 
@@ -80,7 +81,7 @@ namespace MR.Patterns.Repository
 			return table;
 		}
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
 		}
 
