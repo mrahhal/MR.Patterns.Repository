@@ -1,21 +1,21 @@
 ﻿{
   "version": "1.0.0-*",
 
-  "compilationOptions": {
+  "buildOptions": {
     "emitEntryPoint": true
   },
 
   "dependencies": {
     "EntityFramework": "6.1.3",
-    "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final",
-    "MR.Patterns.Repository": ""
-  },
-
-  "commands": {
-    "Basic": "Basic"
+    "Microsoft.Extensions.DependencyInjection": "1.0.0-rc2-final",
+    "MR.Patterns.Repository": "*"
   },
 
   "frameworks": {
-    "dnx451": { }
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Runtime": "4.0.10.0"
+      }
+    }
   }
 }

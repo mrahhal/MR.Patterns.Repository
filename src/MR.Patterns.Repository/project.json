@@ -1,10 +1,13 @@
-﻿{
+{
   "version": "1.0.0-*",
   "description": "Provides a base when implementing the repository pattern with EF6",
   "authors": [ "Mohammad Rahhal" ],
-  "tags": [ "ef", "repository", "pattern", "extensions" ],
-  "projectUrl": "https://github.com/mrahhal/MR.Patterns.Repository",
-  "licenseUrl": "https://github.com/mrahhal/MR.Patterns.Repository/blob/master/LICENSE.txt",
+
+  "packOptions": {
+    "tags": [ "ef", "repository", "pattern", "extensions" ],
+    "projectUrl": "https://github.com/mrahhal/MR.Patterns.Repository",
+    "licenseUrl": "https://github.com/mrahhal/MR.Patterns.Repository/blob/master/LICENSE.txt"
+  },
 
   "dependencies": {
     "EntityFramework": "6.1.3"
