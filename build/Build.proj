@@ -4,11 +4,13 @@
 		<Major>1</Major>
 		<Minor>3</Minor>
 		<Patch>0</Patch>
-		<Quality></Quality> <!-- the quality should be 7 characters long max (imposed by nuget) -->
+		<Quality></Quality>
 
 		<Version>$(Major).$(Minor).$(Patch)</Version>
 		<QualityWithDash Condition="'$(Quality)' != ''">-$(Quality)</QualityWithDash>
 		<InformationalVersion>$(Version)$(QualityWithDash)</InformationalVersion>
+		<DevPre>dev-</DevPre>
+		<DevPre Condition="'$(CI)' == 'true'">ci-</DevPre>
 
 		<BuildType Condition="'$(BuildType)' == ''">Dev</BuildType>
 		<BuildType Condition="'$(APPVEYOR_REPO_TAG)' == 'true'">Release</BuildType>
@@ -24,14 +26,16 @@
 	<Import Project="Build.tasks" />
 
 	<Target Name="GenerateVersionInfo" BeforeTargets="Build">
-		<Time Format="ddMMyyyyhhmm">
-			<Output TaskParameter="FormattedTime" PropertyName="Date" />
-		</Time>
+		<CreateStamp>
+			<Output TaskParameter="Stamp" PropertyName="Stamp" />
+		</CreateStamp>
 		<PropertyGroup>
 			<InfoVersion Condition="'$(BuildType)' == 'Release'">$(InformationalVersion)</InfoVersion>
 			<InfoVersion Condition="'$(BuildType)' != 'Release'">$(InformationalVersion)-d$(Date)</InfoVersion>
-			<Find>"version": ".+"</Find>
-			<Replace>"version": "$(InfoVersion)"</Replace>
+			<Find>{
+  "version": ".+"</Find>
+			<Replace>{
+  "version": "$(InfoVersion)"</Replace>
 		</PropertyGroup>
 		<RegexTransform Files="@(Assemblies->'$(RootDir)src\%(Identity)\project.json')"
 										Find="$(Find)"
@@ -40,8 +44,10 @@
 
 	<Target Name="ResetVersions" AfterTargets="Package">
 		<PropertyGroup>
-			<Find>"version": ".+"</Find>
-			<Replace>"version": "1.0.0-*"</Replace>
+			<Find>{
+  "version": ".+"</Find>
+			<Replace>{
+  "version": "1.0.0-*"</Replace>
 		</PropertyGroup>
 		<RegexTransform Files="@(Assemblies->'$(RootDir)src\%(Identity)\project.json')"
 										Find="$(Find)"
@@ -57,6 +63,9 @@
 	<Target Name="RestorePackages" DependsOnTargets="Clean">
 		<Exec
 			WorkingDirectory="$(RootDir)"
+			Command="dotnet restore" />
+		<Exec
+			WorkingDirectory="$(RootDir)/test/%(TestAssemblies.Identity)/"
 			Command="dotnet restore" />
 	</Target>
 
