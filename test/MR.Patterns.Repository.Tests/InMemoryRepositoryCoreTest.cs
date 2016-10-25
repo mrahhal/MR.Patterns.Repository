@@ -19,11 +19,18 @@ namespace MR.Patterns.Repository
 			public string Title { get; set; }
 		}
 
+		public class Some
+		{
+			public int Foo { get; set; }
+		}
+
 		private class InMemoryRepository : InMemoryRepositoryCore
 		{
 			public IQueryable<Blog> Blogs => For<Blog>();
 
 			public IQueryable<Post> Posts => For<Post>();
+
+			public IQueryable<Some> Somes => For<Some>();
 		}
 
 		[Fact]
@@ -69,6 +76,18 @@ namespace MR.Patterns.Repository
 			repo.Remove(blog);
 
 			(await repo.Blogs.FindByIdAsync(blog.Id)).Should().BeNull();
+		}
+
+		[Fact]
+		public async Task Add_Some()
+		{
+			var repo = Create();
+			var some = new Some()
+			{
+				Foo = 1
+			};
+			repo.Add(some);
+			(await repo.Somes.Where(s => s.Foo == 1).FirstOrDefaultAsync()).Should().NotBeNull();
 		}
 
 		private InMemoryRepository Create() => new InMemoryRepository();

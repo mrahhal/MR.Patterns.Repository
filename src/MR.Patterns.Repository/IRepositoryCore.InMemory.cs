@@ -113,10 +113,13 @@ namespace MR.Patterns.Repository
 			{
 				_entityType = entityType;
 				_idPI = ReflectionHelper.GetIdProperty(entityType);
-				if (ReflectionHelper.IsCountType(_idPI.PropertyType))
+				if (_idPI != null)
 				{
-					_pkGenerator = Activator.CreateInstance(
-						typeof(PKGenerator<>).MakeGenericType(_idPI.PropertyType));
+					if (ReflectionHelper.IsCountType(_idPI.PropertyType))
+					{
+						_pkGenerator = Activator.CreateInstance(
+							typeof(PKGenerator<>).MakeGenericType(_idPI.PropertyType));
+					}
 				}
 				Entities = Activator.CreateInstance(typeof(List<>).MakeGenericType(_entityType));
 			}
