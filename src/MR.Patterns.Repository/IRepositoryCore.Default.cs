@@ -46,7 +46,7 @@ namespace MR.Patterns.Repository
 			{
 				action(connection, transaction);
 				return true;
-			}, null);
+			}, isolationLevel);
 		}
 
 		public Task RunInTransactionAsync(Func<DbConnection, DbTransaction, Task> func, IsolationLevel? isolationLevel = null)
@@ -55,7 +55,7 @@ namespace MR.Patterns.Repository
 			{
 				await func(connection, transaction);
 				return true;
-			}, null);
+			}, isolationLevel);
 		}
 
 		public T RunInTransaction<T>(Func<DbConnection, DbTransaction, T> func, IsolationLevel? isolationLevel = null)
