@@ -53,6 +53,8 @@ public class InMemoryRepository : InMemoryRepositoryCore, IRepository
 }
 ```
 
+Note: The `InMemoryRepository` requires the PK property to be called "Id" for auto incrementing to work.
+
 ## Nice improvements to have
 
 - Relationship fixups for the in memory store.
