@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.Common;
 using System.Threading.Tasks;
 
 namespace MR.Patterns.Repository
@@ -14,12 +15,16 @@ namespace MR.Patterns.Repository
 
 		Task SaveChangesAsync();
 
-		Task RunInTransactionAsync(Func<Task> action);
+		void RunInTransaction(
+			Action<DbConnection, DbTransaction> action, IsolationLevel? isolationLevel = null);
 
-		Task RunInTransactionAsync(Func<IDbTransaction, Task> action);
+		T RunInTransaction<T>(
+			Func<DbConnection, DbTransaction, T> func, IsolationLevel? isolationLevel = null);
 
-		Task RunInTransactionAsync(Action action);
+		Task RunInTransactionAsync(
+			Func<DbConnection, DbTransaction, Task> func, IsolationLevel? isolationLevel = null);
 
-		Task RunInTransactionAsync(Action<IDbTransaction> action);
+		Task<T> RunInTransactionAsync<T>(
+			Func<DbConnection, DbTransaction, Task<T>> func, IsolationLevel? isolationLevel = null);
 	}
 }

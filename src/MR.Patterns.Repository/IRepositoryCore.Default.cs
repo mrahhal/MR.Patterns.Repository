@@ -40,7 +40,8 @@ namespace MR.Patterns.Repository
 
 		public virtual Task SaveChangesAsync() => Context.SaveChangesAsync();
 
-		public void RunInTransaction(Action<DbConnection, DbTransaction> action, IsolationLevel? isolationLevel = null)
+		public void RunInTransaction(
+			Action<DbConnection, DbTransaction> action, IsolationLevel? isolationLevel = null)
 		{
 			RunInTransaction((connection, transaction) =>
 			{
@@ -49,16 +50,8 @@ namespace MR.Patterns.Repository
 			}, isolationLevel);
 		}
 
-		public Task RunInTransactionAsync(Func<DbConnection, DbTransaction, Task> func, IsolationLevel? isolationLevel = null)
-		{
-			return RunInTransactionAsync(async (connection, transaction) =>
-			{
-				await func(connection, transaction);
-				return true;
-			}, isolationLevel);
-		}
-
-		public T RunInTransaction<T>(Func<DbConnection, DbTransaction, T> func, IsolationLevel? isolationLevel = null)
+		public T RunInTransaction<T>(
+			Func<DbConnection, DbTransaction, T> func, IsolationLevel? isolationLevel = null)
 		{
 			T result;
 			using (var contextTransaction = CreateTransaction(isolationLevel))
@@ -77,7 +70,18 @@ namespace MR.Patterns.Repository
 			return result;
 		}
 
-		public async Task<T> RunInTransactionAsync<T>(Func<DbConnection, DbTransaction, Task<T>> func, IsolationLevel? isolationLevel = null)
+		public Task RunInTransactionAsync(
+			Func<DbConnection, DbTransaction, Task> func, IsolationLevel? isolationLevel = null)
+		{
+			return RunInTransactionAsync(async (connection, transaction) =>
+			{
+				await func(connection, transaction);
+				return true;
+			}, isolationLevel);
+		}
+
+		public async Task<T> RunInTransactionAsync<T>(
+			Func<DbConnection, DbTransaction, Task<T>> func, IsolationLevel? isolationLevel = null)
 		{
 			T result;
 			using (var contextTransaction = CreateTransaction(isolationLevel))
@@ -96,47 +100,17 @@ namespace MR.Patterns.Repository
 			return result;
 		}
 
+		public virtual void Dispose()
+		{
+			Context.Dispose();
+		}
+
 		private DbContextTransaction CreateTransaction(IsolationLevel? isolationLevel)
 		{
 			return
 				isolationLevel == null ?
 				Database.BeginTransaction() :
 				Database.BeginTransaction(isolationLevel.Value);
-		}
-
-		public virtual void Dispose()
-		{
-			Context.Dispose();
-		}
-
-		// Obsolete
-
-		[Obsolete("Use the other overloads with manually calling SaveChangesAsync when necessary.")]
-		public virtual Task RunInTransactionAsync(Func<Task> action)
-			=> RunInTransactionAsync((_) => action());
-
-		[Obsolete("Use the other overloads with manually calling SaveChangesAsync when necessary.")]
-		public virtual Task RunInTransactionAsync(Func<IDbTransaction, Task> action)
-		{
-			return RunInTransactionAsync(async (_, transaction) =>
-			{
-				await action(transaction);
-				await SaveChangesAsync();
-			});
-		}
-
-		[Obsolete("Use the other overloads with manually calling SaveChangesAsync when necessary.")]
-		public virtual Task RunInTransactionAsync(Action action)
-			=> RunInTransactionAsync((_) => action());
-
-		[Obsolete("Use the other overloads with manually calling SaveChangesAsync when necessary.")]
-		public virtual Task RunInTransactionAsync(Action<IDbTransaction> action)
-		{
-			return RunInTransactionAsync((_, transaction) =>
-			{
-				action(transaction);
-				return SaveChangesAsync();
-			});
 		}
 	}
 }

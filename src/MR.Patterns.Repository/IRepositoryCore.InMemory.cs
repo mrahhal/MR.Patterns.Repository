@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -85,20 +86,36 @@ namespace MR.Patterns.Repository
 		{
 		}
 
-		public virtual Task RunInTransactionAsync(Func<Task> action) => action();
-
-		public virtual Task RunInTransactionAsync(Func<IDbTransaction, Task> action) => action(null);
-
-		public virtual Task RunInTransactionAsync(Action action)
+		public void RunInTransaction(
+			Action<DbConnection, DbTransaction> action, IsolationLevel? isolationLevel)
 		{
-			action();
-			return Task.FromResult(0);
+			RunInTransaction((_1, _2) =>
+			{
+				action(_1, _2);
+				return true;
+			}, isolationLevel);
 		}
 
-		public virtual Task RunInTransactionAsync(Action<IDbTransaction> action)
+		public T RunInTransaction<T>(
+			Func<DbConnection, DbTransaction, T> func, IsolationLevel? isolationLevel)
 		{
-			action(null);
-			return Task.FromResult(0);
+			return func(null, null);
+		}
+
+		public Task RunInTransactionAsync(
+			Func<DbConnection, DbTransaction, Task> func, IsolationLevel? isolationLevel)
+		{
+			return RunInTransactionAsync((_1, _2) =>
+			{
+				func(_1, _2).GetAwaiter().GetResult();
+				return Task.FromResult(true);
+			}, isolationLevel);
+		}
+
+		public Task<T> RunInTransactionAsync<T>(
+			Func<DbConnection, DbTransaction, Task<T>> func, IsolationLevel? isolationLevel)
+		{
+			return func(null, null);
 		}
 
 		private class Table
