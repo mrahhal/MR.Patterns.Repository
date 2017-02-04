@@ -5,7 +5,7 @@ using Xunit;
 
 namespace MR.Patterns.Repository
 {
-	public class InMemoryRepositoryCoreTest : TestHost
+	public class InMemoryRepositoryCoreTest
 	{
 		private class Blog : IEntity<int>
 		{

@@ -1,6 +1,4 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using MR.Patterns.Repository;
 
 namespace Basic
 {
@@ -8,7 +6,6 @@ namespace Basic
 	{
 		static TestHost()
 		{
-			UnitTestDetector.SetIsInUnitTest();
 		}
 
 		public IServiceProvider CreateProvider()

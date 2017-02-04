@@ -3,7 +3,7 @@ using Xunit;
 
 namespace MR.Patterns.Repository
 {
-	public class PKGeneratorTest : TestHost
+	public class PKGeneratorTest
 	{
 		[Fact]
 		public void Int()
