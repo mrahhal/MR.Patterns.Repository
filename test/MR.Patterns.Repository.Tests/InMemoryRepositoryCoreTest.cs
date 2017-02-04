@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
@@ -11,12 +12,17 @@ namespace MR.Patterns.Repository
 		{
 			public int Id { get; set; }
 			public string Name { get; set; }
+
+			public List<Post> Posts { get; set; }
 		}
 
 		private class Post : IEntity<long>
 		{
 			public long Id { get; set; }
 			public string Title { get; set; }
+
+			public Blog Blog { get; set; }
+			public int BlogId { get; set; }
 		}
 
 		public class Some
@@ -88,6 +94,20 @@ namespace MR.Patterns.Repository
 			};
 			repo.Add(some);
 			(await repo.Somes.Where(s => s.Foo == 1).FirstOrDefaultAsync()).Should().NotBeNull();
+		}
+
+		[Fact]
+		public async Task Query()
+		{
+			var repo = Create();
+			var blog = new Blog()
+			{
+				Posts = new List<Post> { new Post(), new Post() }
+			};
+
+			repo.Add(blog);
+
+			(await repo.Query(blog, b => b.Posts).ToListAsync()).Should().HaveCount(2);
 		}
 
 		private InMemoryRepository Create() => new InMemoryRepository();

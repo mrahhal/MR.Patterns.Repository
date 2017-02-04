@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace MR.Patterns.Repository
@@ -26,5 +29,25 @@ namespace MR.Patterns.Repository
 
 		Task<T> RunInTransactionAsync<T>(
 			Func<DbConnection, DbTransaction, Task<T>> func, IsolationLevel? isolationLevel = null);
+
+		void Load<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
+			where T : class
+			where TProperty : class;
+
+		Task LoadAsync<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
+			where T : class
+			where TProperty : class;
+
+		void Load<T, TElement>(T entity, Expression<Func<T, ICollection<TElement>>> property)
+			where T : class
+			where TElement : class;
+
+		Task LoadAsync<T, TElement>(T entity, Expression<Func<T, ICollection<TElement>>> property)
+			where T : class
+			where TElement : class;
+
+		IQueryable<TElement> Query<T, TElement>(T entity, Expression<Func<T, ICollection<TElement>>> property)
+			where T : class
+			where TElement : class;
 	}
 }

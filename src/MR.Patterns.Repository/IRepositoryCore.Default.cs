@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace MR.Patterns.Repository
@@ -98,6 +101,41 @@ namespace MR.Patterns.Repository
 				}
 			}
 			return result;
+		}
+
+		public void Load<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
+			where T : class
+			where TProperty : class
+		{
+			Context.Entry(entity).Reference(property).Load();
+		}
+
+		public Task LoadAsync<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
+			where T : class
+			where TProperty : class
+		{
+			return Context.Entry(entity).Reference(property).LoadAsync();
+		}
+
+		public void Load<T, TElement>(T entity, Expression<Func<T, ICollection<TElement>>> property)
+			where T : class
+			where TElement : class
+		{
+			Context.Entry(entity).Collection(property).Load();
+		}
+
+		public Task LoadAsync<T, TElement>(T entity, Expression<Func<T, ICollection<TElement>>> property)
+			where T : class
+			where TElement : class
+		{
+			return Context.Entry(entity).Collection(property).LoadAsync();
+		}
+
+		public IQueryable<TElement> Query<T, TElement>(T entity, Expression<Func<T, ICollection<TElement>>> property)
+			where T : class
+			where TElement : class
+		{
+			return Context.Entry(entity).Collection(property).Query();
 		}
 
 		public virtual void Dispose()

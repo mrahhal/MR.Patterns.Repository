@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 using MR.Patterns.Repository.Internal;
@@ -82,10 +83,6 @@ namespace MR.Patterns.Repository
 			return table;
 		}
 
-		public virtual void Dispose()
-		{
-		}
-
 		public void RunInTransaction(
 			Action<DbConnection, DbTransaction> action, IsolationLevel? isolationLevel)
 		{
@@ -116,6 +113,44 @@ namespace MR.Patterns.Repository
 			Func<DbConnection, DbTransaction, Task<T>> func, IsolationLevel? isolationLevel)
 		{
 			return func(null, null);
+		}
+		public void Load<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
+			where T : class
+			where TProperty : class
+		{
+		}
+
+		public Task LoadAsync<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
+			where T : class
+			where TProperty : class
+		{
+			return Task.FromResult(0);
+		}
+
+		public void Load<T, TElement>(T entity, Expression<Func<T, ICollection<TElement>>> property)
+			where T : class
+			where TElement : class
+		{
+		}
+
+		public Task LoadAsync<T, TElement>(T entity, Expression<Func<T, ICollection<TElement>>> property)
+			where T : class
+			where TElement : class
+		{
+			return Task.FromResult(0);
+		}
+
+		public IQueryable<TElement> Query<T, TElement>(T entity, Expression<Func<T, ICollection<TElement>>> expression)
+			where T : class
+			where TElement : class
+		{
+			var pi = (expression.Body as MemberExpression).Member as PropertyInfo;
+			var result = (ICollection<TElement>)pi.GetMethod.Invoke(entity, new object[0]);
+			return result.AsQueryable();
+		}
+
+		public virtual void Dispose()
+		{
 		}
 
 		private class Table
