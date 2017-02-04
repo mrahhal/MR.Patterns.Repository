@@ -1,11 +1,11 @@
 ﻿{
-  "version": "1.0.0-*",
-
   "dependencies": {
-    "dotnet-test-xunit": "2.2.0-preview2-build1029",
-    "FluentAssertions": "4.2.2",
-    "MR.Patterns.Repository": "*",
-    "xunit": "2.2.0-beta2-build3300"
+    "dotnet-test-xunit": "2.2.0-preview2-*",
+    "FluentAssertions": "4.18.0",
+    "MR.Patterns.Repository": {
+      "target": "project"
+    },
+    "xunit": "2.2.0-*"
   },
 
   "testRunner": "xunit",
