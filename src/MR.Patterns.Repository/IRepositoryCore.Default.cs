@@ -103,6 +103,24 @@ namespace MR.Patterns.Repository
 			return result;
 		}
 
+		public void Reload<T>(T entity)
+			where T : class
+		{
+			Context.Entry(entity).Reload();
+		}
+
+		public Task ReloadAsync<T>(T entity)
+			where T : class
+		{
+			return Context.Entry(entity).ReloadAsync();
+		}
+
+		public void SetState<T>(T entity, EntityState state)
+			where T : class
+		{
+			Context.Entry(entity).State = state;
+		}
+
 		public void Load<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
 			where T : class
 			where TProperty : class

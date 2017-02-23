@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MR.Patterns.Repository
@@ -72,6 +74,30 @@ namespace MR.Patterns.Repository
 		{
 			@this.RemoveRange(entities);
 			return @this.SaveChangesAsync();
+		}
+
+		public static void SetState<TEntity>(this IRepositoryCore @this, IEnumerable<TEntity> entities, EntityState state)
+			where TEntity : class
+		{
+			foreach (var entity in entities)
+			{
+				@this.SetState(entity, state);
+			}
+		}
+
+		public static void Detach<TEntity>(this IRepositoryCore @this, TEntity entity)
+			where TEntity : class
+		{
+			@this.SetState(entity, EntityState.Detached);
+		}
+
+		public static void Detach<TEntity>(this IRepositoryCore @this, IEnumerable<TEntity> entities)
+			where TEntity : class
+		{
+			foreach (var entity in entities)
+			{
+				@this.Detach(entity);
+			}
 		}
 	}
 }

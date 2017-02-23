@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -29,6 +30,15 @@ namespace MR.Patterns.Repository
 
 		Task<T> RunInTransactionAsync<T>(
 			Func<DbConnection, DbTransaction, Task<T>> func, IsolationLevel? isolationLevel = null);
+
+		void Reload<T>(T entity)
+			where T : class;
+
+		Task ReloadAsync<T>(T entity)
+			where T : class;
+
+		void SetState<T>(T entity, EntityState state)
+			where T : class;
 
 		void Load<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
 			where T : class

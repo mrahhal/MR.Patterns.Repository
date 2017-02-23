@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 using MR.Patterns.Repository.Internal;
+using System.Data.Entity;
 
 namespace MR.Patterns.Repository
 {
@@ -114,6 +115,23 @@ namespace MR.Patterns.Repository
 		{
 			return func(null, null);
 		}
+
+		public void Reload<T>(T entity)
+			where T : class
+		{
+		}
+
+		public Task ReloadAsync<T>(T entity)
+			where T : class
+		{
+			return Task.FromResult(0);
+		}
+
+		public void SetState<T>(T entity, EntityState state)
+			where T : class
+		{
+		}
+
 		public void Load<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
 			where T : class
 			where TProperty : class
