@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{28C15C68-D034-4247-BD6C-780A23F6CD4D}"
 EndProject
@@ -11,21 +11,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
-		global.json = global.json
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MR.Patterns.Repository", "src\MR.Patterns.Repository\MR.Patterns.Repository.xproj", "{277BD246-4427-4F7B-A331-B62C6D72EC62}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{D0DF305B-A160-4C34-B787-AA08D41178E6}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Basic", "samples\Basic\Basic.xproj", "{8DE5A0B8-ACBD-4C68-BE73-422974DC4AE0}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Basic.Tests", "samples\Basic.Tests\Basic.Tests.xproj", "{650A5A85-5956-491E-9312-5E25A27D1108}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7E928912-BFFF-470E-8FB8-56FC754F8716}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MR.Patterns.Repository.Tests", "test\MR.Patterns.Repository.Tests\MR.Patterns.Repository.Tests.xproj", "{6C76FCF1-1790-477F-A279-B4B889BB90BE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{1DC79ED7-7E9E-4ABE-9203-44046420F144}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,8 +25,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{1DC79ED7
 		build\index.cake = build\index.cake
 		build\util.cake = build\util.cake
 		build\version.cake = build\version.cake
-		build\version.json = build\version.json
+		build\version.props = build\version.props
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MR.Patterns.Repository", "src\MR.Patterns.Repository\MR.Patterns.Repository.csproj", "{277BD246-4427-4F7B-A331-B62C6D72EC62}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic", "samples\Basic\Basic.csproj", "{8DE5A0B8-ACBD-4C68-BE73-422974DC4AE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Tests", "samples\Basic.Tests\Basic.Tests.csproj", "{650A5A85-5956-491E-9312-5E25A27D1108}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MR.Patterns.Repository.Tests", "test\MR.Patterns.Repository.Tests\MR.Patterns.Repository.Tests.csproj", "{6C76FCF1-1790-477F-A279-B4B889BB90BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
