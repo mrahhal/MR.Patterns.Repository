@@ -4,7 +4,6 @@
 
 	<PropertyGroup>
 		<Description>Provides a base when implementing the repository pattern with EF6.</Description>
-		<VersionPrefix>2.2.0</VersionPrefix>
 		<Authors>Mohammad Rahhal</Authors>
 		<TargetFramework>net451</TargetFramework>
 		<AssemblyName>MR.Patterns.Repository</AssemblyName>
