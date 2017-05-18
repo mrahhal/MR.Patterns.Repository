@@ -15,6 +15,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="xunit.runner.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\..\src\MR.Patterns.Repository\MR.Patterns.Repository.csproj" />
 	</ItemGroup>
 
