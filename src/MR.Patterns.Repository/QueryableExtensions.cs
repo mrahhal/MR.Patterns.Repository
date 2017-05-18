@@ -46,6 +46,14 @@ namespace MR.Patterns.Repository
 			return QE.Include(source, path);
 		}
 
+		public static IQueryable<T> AsNoTracking<T>(this IQueryable<T> source)
+			where T : class
+		{
+			if (IsInUnitTest)
+				return source;
+			return QE.AsNoTracking(source);
+		}
+
 		public static Task<int> CountAsync<T>(this IQueryable<T> source)
 		{
 			if (IsInUnitTest)
