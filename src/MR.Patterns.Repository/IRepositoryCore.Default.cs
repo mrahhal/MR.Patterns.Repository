@@ -57,19 +57,28 @@ namespace MR.Patterns.Repository
 			Func<DbConnection, DbTransaction, T> func, IsolationLevel? isolationLevel = null)
 		{
 			T result;
-			using (var contextTransaction = CreateTransaction(isolationLevel))
+
+			if (Database.CurrentTransaction != null)
 			{
-				try
+				result = func(Database.Connection, Database.CurrentTransaction.UnderlyingTransaction);
+			}
+			else
+			{
+				using (var contextTransaction = CreateTransaction(isolationLevel))
 				{
-					result = func(Database.Connection, contextTransaction.UnderlyingTransaction);
-					contextTransaction.Commit();
-				}
-				catch
-				{
-					contextTransaction.Rollback();
-					throw;
+					try
+					{
+						result = func(Database.Connection, contextTransaction.UnderlyingTransaction);
+						contextTransaction.Commit();
+					}
+					catch
+					{
+						contextTransaction.Rollback();
+						throw;
+					}
 				}
 			}
+
 			return result;
 		}
 
@@ -87,19 +96,28 @@ namespace MR.Patterns.Repository
 			Func<DbConnection, DbTransaction, Task<T>> func, IsolationLevel? isolationLevel = null)
 		{
 			T result;
-			using (var contextTransaction = CreateTransaction(isolationLevel))
+
+			if (Database.CurrentTransaction != null)
 			{
-				try
+				result = await func(Database.Connection, Database.CurrentTransaction.UnderlyingTransaction);
+			}
+			else
+			{
+				using (var contextTransaction = CreateTransaction(isolationLevel))
 				{
-					result = await func(Database.Connection, contextTransaction.UnderlyingTransaction);
-					contextTransaction.Commit();
-				}
-				catch
-				{
-					contextTransaction.Rollback();
-					throw;
+					try
+					{
+						result = await func(Database.Connection, contextTransaction.UnderlyingTransaction);
+						contextTransaction.Commit();
+					}
+					catch
+					{
+						contextTransaction.Rollback();
+						throw;
+					}
 				}
 			}
+
 			return result;
 		}
 
