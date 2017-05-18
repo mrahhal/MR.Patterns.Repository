@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{28C15C68-D034-4247-BD6C-780A23F6CD4D}"
 EndProject
@@ -36,6 +36,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Tests", "samples\Basi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MR.Patterns.Repository.Tests", "test\MR.Patterns.Repository.Tests\MR.Patterns.Repository.Tests.csproj", "{6C76FCF1-1790-477F-A279-B4B889BB90BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MR.Patterns.Repository.IntegrationTests", "test\MR.Patterns.Repository.IntegrationTests\MR.Patterns.Repository.IntegrationTests.csproj", "{2104EFF7-72D8-4CAF-A44A-8B6D481C8D1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{6C76FCF1-1790-477F-A279-B4B889BB90BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C76FCF1-1790-477F-A279-B4B889BB90BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C76FCF1-1790-477F-A279-B4B889BB90BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2104EFF7-72D8-4CAF-A44A-8B6D481C8D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2104EFF7-72D8-4CAF-A44A-8B6D481C8D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2104EFF7-72D8-4CAF-A44A-8B6D481C8D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2104EFF7-72D8-4CAF-A44A-8B6D481C8D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +73,6 @@ Global
 		{8DE5A0B8-ACBD-4C68-BE73-422974DC4AE0} = {D0DF305B-A160-4C34-B787-AA08D41178E6}
 		{650A5A85-5956-491E-9312-5E25A27D1108} = {D0DF305B-A160-4C34-B787-AA08D41178E6}
 		{6C76FCF1-1790-477F-A279-B4B889BB90BE} = {7E928912-BFFF-470E-8FB8-56FC754F8716}
+		{2104EFF7-72D8-4CAF-A44A-8B6D481C8D1B} = {7E928912-BFFF-470E-8FB8-56FC754F8716}
 	EndGlobalSection
 EndGlobal
