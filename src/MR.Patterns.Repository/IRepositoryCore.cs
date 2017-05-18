@@ -40,6 +40,12 @@ namespace MR.Patterns.Repository
 		void SetState<T>(T entity, EntityState state)
 			where T : class;
 
+		void SetPropertyModified<T>(T entity, string propertyName)
+			where T : class;
+
+		void SetPropertyModified<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
+			where T : class;
+
 		void Load<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
 			where T : class
 			where TProperty : class;

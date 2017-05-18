@@ -132,6 +132,16 @@ namespace MR.Patterns.Repository
 		{
 		}
 
+		public void SetPropertyModified<T>(T entity, string propertyName)
+			where T : class
+		{
+		}
+
+		public void SetPropertyModified<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
+			where T : class
+		{
+		}
+
 		public void Load<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
 			where T : class
 			where TProperty : class

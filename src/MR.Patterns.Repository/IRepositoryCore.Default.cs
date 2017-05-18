@@ -139,6 +139,18 @@ namespace MR.Patterns.Repository
 			Context.Entry(entity).State = state;
 		}
 
+		public void SetPropertyModified<T>(T entity, string propertyName)
+			where T : class
+		{
+			Context.Entry(entity).Property(propertyName).IsModified = true;
+		}
+
+		public void SetPropertyModified<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
+			where T : class
+		{
+			Context.Entry(entity).Property(property).IsModified = true;
+		}
+
 		public void Load<T, TProperty>(T entity, Expression<Func<T, TProperty>> property)
 			where T : class
 			where TProperty : class
