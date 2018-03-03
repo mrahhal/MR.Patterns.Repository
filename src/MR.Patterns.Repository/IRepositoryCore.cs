@@ -17,6 +17,8 @@ namespace MR.Patterns.Repository
 
 		void Remove<TEntity>(TEntity entity) where TEntity : class;
 
+		IQueryable<TEntity> Set<TEntity>() where TEntity : class;
+
 		Task SaveChangesAsync();
 
 		void RunInTransaction(

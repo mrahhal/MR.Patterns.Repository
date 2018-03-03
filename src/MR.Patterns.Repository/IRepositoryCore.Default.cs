@@ -41,6 +41,12 @@ namespace MR.Patterns.Repository
 			Context.Set<TEntity>().Remove(entity);
 		}
 
+		public virtual IQueryable<TEntity> Set<TEntity>()
+			where TEntity : class
+		{
+			return Context.Set<TEntity>();
+		}
+
 		public virtual Task SaveChangesAsync() => Context.SaveChangesAsync();
 
 		public void RunInTransaction(

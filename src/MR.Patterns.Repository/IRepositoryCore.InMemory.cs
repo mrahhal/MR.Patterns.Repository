@@ -43,6 +43,12 @@ namespace MR.Patterns.Repository
 			}
 		}
 
+		public virtual IQueryable<TEntity> Set<TEntity>()
+			where TEntity : class
+		{
+			return For<TEntity>();
+		}
+
 		protected IQueryable<TEntity> For<TEntity>()
 			where TEntity : class
 		{
