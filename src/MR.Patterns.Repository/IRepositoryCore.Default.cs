@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MR.Patterns.Repository
 {
 	public abstract class RepositoryCore<TContext> : IRepositoryCore
-		 where TContext : DbContext
+		where TContext : DbContext
 	{
 		public RepositoryCore(TContext context)
 		{
