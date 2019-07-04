@@ -116,5 +116,12 @@ namespace MR.Patterns.Repository
 				return Task.FromResult(source.ToList());
 			return QE.ToListAsync(source);
 		}
+
+		public static Task LoadAsync(this IQueryable source)
+		{
+			if (IsInUnitTest)
+				return Task.FromResult(source);
+			return QE.LoadAsync(source);
+		}
 	}
 }
