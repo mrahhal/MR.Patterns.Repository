@@ -79,7 +79,15 @@ namespace MR.Patterns.Repository
 					}
 					catch
 					{
-						contextTransaction.Rollback();
+						// Ignore rollback exceptions from the client side.
+						try
+						{
+							contextTransaction.Rollback();
+						}
+						catch
+						{
+							// No need to do anything here.
+						}
 						throw;
 					}
 				}
@@ -118,7 +126,15 @@ namespace MR.Patterns.Repository
 					}
 					catch
 					{
-						contextTransaction.Rollback();
+						// Ignore rollback exceptions from the client side.
+						try
+						{
+							contextTransaction.Rollback();
+						}
+						catch
+						{
+							// No need to do anything here.
+						}
 						throw;
 					}
 				}
