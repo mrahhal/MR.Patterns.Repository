@@ -6,6 +6,8 @@
 
 Provides a base when implementing the repository pattern with EF6.
 
+(Version 3.0 and above supports netcoreapp 3 and EF 6.4)
+
 ## Objectives
 
 - Quickly implement the pattern with little to no plumbing or boilerplate on your end.
