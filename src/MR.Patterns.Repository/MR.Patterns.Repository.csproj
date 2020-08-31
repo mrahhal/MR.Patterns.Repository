@@ -5,7 +5,7 @@
 	<PropertyGroup>
 		<Description>Provides a base when implementing the repository pattern with EF6.</Description>
 		<Authors>Mohammad Rahhal</Authors>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFrameworks>netstandard2.1;net45</TargetFrameworks>
 		<AssemblyName>MR.Patterns.Repository</AssemblyName>
 		<PackageId>MR.Patterns.Repository</PackageId>
 		<PackageTags>ef;repository;pattern;extensions</PackageTags>
